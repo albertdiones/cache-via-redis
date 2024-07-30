@@ -1,0 +1,21 @@
+{
+  "name": "cache-via-mongo",
+  "version": "0.0.2",
+  "description": "Caching Adapter using MongoDb (Mongoose)",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cache",
+    "MongoDB",
+    "TypeScript",
+    "Cache",
+    "Adapter"
+  ],
+  "author": "adiones@addteam.org",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.5.1"
+  }
+}
