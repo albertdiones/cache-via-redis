@@ -1,9 +1,7 @@
-import { createClient } from 'redis';
 import cache from '.';
 
 cache.connect();
 
-console.log(typeof cache.client);
 
 
 function fetchWithCache(url): Promise<string> {

@@ -5,21 +5,17 @@ Caching Adapter using MongoDb (Mongoose)
 Sample Usage:
 
 ```
-import mongoose from 'mongoose';
-import cache from '.';
-import { CacheItem } from './schema';
+import cache from 'cache-via-redis';
 
-const mongoUrl = 'mongodb://localhost:27017/cache_via_mongo_test';
-
-await mongoose.connect(mongoUrl);
+cache.connect();
 
 
 function fetchWithCache(url): Promise<string> {
     return cache.getItem(url).then(
-        (cacheItem: CacheItem | null) => {
+        (cacheItem: string | null) => {
             if (cacheItem) {
                 console.log("Return from cache");
-                return cacheItem.value;
+                return cacheItem;
             }
             return fetch(url).then(
                 (response) => response.text()
