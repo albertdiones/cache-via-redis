@@ -1,8 +1,10 @@
 import { createClient } from 'redis';
 import cache from '.';
 
-const redisClient = createClient();
-await redisClient.connect();
+cache.connect();
+
+console.log(typeof cache.client);
+
 
 function fetchWithCache(url): Promise<string> {
     return cache.getItem(url).then(

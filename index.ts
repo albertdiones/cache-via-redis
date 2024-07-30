@@ -1,15 +1,30 @@
-import { CacheItem } from "./schema"
+import { RedisClientType } from '@redis/client';
+import { createClient } from 'redis';
 
 
-export default {
-    getItem: async (key: string): Promise<CacheItem | null> => {
-        return CacheItem.findOne({key, expiration: { $gt: Date.now() }}).then((item) => item);
-    },
-    setItem: (key: string, value: string, expiration: number): void => { 
-        CacheItem.deleteOne({key}).then(
-            () => {
-                new CacheItem({key, value, expiration: Date.now() + (expiration*1000)}).save();
-            }
-        );
+class CacheViaRedis {
+
+    client: RedisClientType;
+
+    constructor() {
     }
-};
+
+    connect() {
+        this.client = createClient();
+        this.client.connect();
+    }
+
+    async getItem(key: string): Promise<string | null> {
+        return this.client.get(key).then((value) => value ? JSON.parse(value) : null);
+    }
+
+    setItem(
+        key: string, 
+        value: string,
+        expiration: number
+    ): void { 
+        this.client.setEx(key, expiration, JSON.stringify(value));
+    }
+}
+
+export default new CacheViaRedis();
