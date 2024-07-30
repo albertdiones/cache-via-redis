@@ -21,9 +21,9 @@ class CacheViaRedis {
     setItem(
         key: string, 
         value: string,
-        expiration: number
+        expirationSeconds: number
     ): void { 
-        this.client.setEx(key, expiration, JSON.stringify(value));
+        this.client.setEx(key, expirationSeconds, JSON.stringify(value));
     }
 }
 
