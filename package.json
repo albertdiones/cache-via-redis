@@ -16,6 +16,7 @@
   "author": "adiones@addteam.org",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^8.5.1"
+    "mongoose": "^8.5.1",
+    "redis": "^4.7.0"
   }
 }

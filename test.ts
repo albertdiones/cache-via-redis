@@ -1,18 +1,15 @@
-import mongoose from 'mongoose';
+import { createClient } from 'redis';
 import cache from '.';
-import { CacheItem } from './schema';
 
-const mongoUrl = 'mongodb://localhost:27017/cache_via_mongo_test';
-
-await mongoose.connect(mongoUrl);
-
+const redisClient = createClient();
+await redisClient.connect();
 
 function fetchWithCache(url): Promise<string> {
     return cache.getItem(url).then(
-        (cacheItem: CacheItem | null) => {
+        (cacheItem: string | null) => {
             if (cacheItem) {
                 console.log("Return from cache");
-                return cacheItem.value;
+                return cacheItem;
             }
             return fetch(url).then(
                 (response) => response.text()
