@@ -9,8 +9,8 @@ class CacheViaRedis {
     constructor() {
     }
 
-    connect() {
-        this.client = createClient();
+    connect(options?: object) {
+        this.client = createClient(options);
         this.client.connect();
     }
 
